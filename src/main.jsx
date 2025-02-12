@@ -29,11 +29,11 @@ const router = createBrowserRouter([
         element: <Register />
       },
       {
-        path: 'addnew',
+        path: '/addnew',
         element: <AddUser />
       },
       {
-        path: 'view',
+        path: '/view',
         element: <ViewUser />
       }
     ]
