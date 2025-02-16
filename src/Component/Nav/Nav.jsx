@@ -1,9 +1,6 @@
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../Provider/AuthProvider";
 
 const Nav = () => {
-    const {name} = useContext(AuthContext)
     return (
         <div className="mb-3 bg-gray-600 font-medium py-3 grid grid-cols-5">
             <div className="col-span-2 text-amber-300 mx-auto">User Management</div>
