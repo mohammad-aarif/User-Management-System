@@ -56,6 +56,23 @@ const AuthProvider = ({children}) => {
         .then(user => {
             setUser(user.user);
             setLoading(false);
+
+            // Sending Data to the Database 
+            const name = user?.user?.displayName;
+            const email = user?.user?.email;
+            const emailVerified = user?.user?.emailVerified;
+            const createdAt = user?.user?.metadata?.creationTime;
+            const lastSignInTime = user?.user?.metadata?.lastSignInTime;            
+            const newUser = {name, email, emailVerified, createdAt, lastSignInTime}
+
+
+            fetch('http://localhost:5000/users', {
+                method: 'POST',
+                headers:{
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(newUser) 
+            })
         })
         .catch(err => console.log(err)
         )
