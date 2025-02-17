@@ -10,13 +10,34 @@ const AuthProvider = ({children}) => {
 
     const googleProvider = new GoogleAuthProvider()
 
-    const createUser = (email, password) =>{        
+
+    // Creating New User via Email and Password 
+    const createUser = (name, email, password) =>{        
         return (
         createUserWithEmailAndPassword(auth, email, password)
-        .then(user => console.log(user))
+        .then(user => {
+            setUser(user.user)
+
+            // Data Sending to the Database 
+            const emailVerified = user?.user?.emailVerified;
+            const createdAt = user?.user?.metadata?.creationTime;
+            const lastSignInTime = user?.user?.metadata?.lastSignInTime;
+            const newUser = {name, email, emailVerified, createdAt, lastSignInTime}
+
+            fetch('http://localhost:5000/users',{
+                method: 'POST',
+                headers:{
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(newUser),
+            })
+            .then(res => console.log(res))
+        })
         .catch(err => console.log(err)))
     }
 
+
+    // SingIn With Email and Password
     const signInEmail = (email, password) => {
         return(
         signInWithEmailAndPassword(auth, email, password)
@@ -26,11 +47,10 @@ const AuthProvider = ({children}) => {
             
         })
         .catch(err => console.log(err)))
-
     }
 
+    // Sing In with Google Provider 
     const signInGoogle = () =>{
-        console.log("hitted");
         
         signInWithPopup(auth, googleProvider)
         .then(user => {

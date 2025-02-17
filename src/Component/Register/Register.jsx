@@ -6,18 +6,15 @@ const Register = () => {
     const {createUser, signInGoogle} = useContext(AuthContext)
     const handleRegister = e => {
         e.preventDefault()
-        const form = e.target
-        console.log(form);
-        
+        const form = e.target        
         const email = form.email.value;
         const password = form.password.value;
         const name = form.name.value;
-        console.log(name);
-        createUser(email, password)
+        createUser(name, email, password)
         
     }
     return (
-        <div className=" mx-auto flex items-center flex-col">
+        <div className="mx-auto flex items-center flex-col">
             <h1 className="text-4xl text-center text-white">Register</h1>
 
             <form onSubmit={handleRegister} className="w-3/7 text-gray-300 mt-8">
