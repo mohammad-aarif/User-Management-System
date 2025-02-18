@@ -1,8 +1,13 @@
 import { useLoaderData } from "react-router-dom";
+import { TbRosetteDiscountCheckFilled, TbTrashX  } from "react-icons/tb";
+import { LiaTimesCircleSolid  } from "react-icons/lia";
 
 const ViewUser = () => {
     const user = useLoaderData()
-    console.log(user);
+    const handleDeleteUser = id => {
+        console.log(id);
+        
+    } 
     
     return (
         <div>
@@ -14,7 +19,7 @@ const ViewUser = () => {
                         <th>Email</th>
                         <th>Since</th>
                         <th>Last Login</th>
-                        <th>Varified</th>
+                        <th>Verified</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -27,8 +32,8 @@ const ViewUser = () => {
                         <td>{data.email}</td>
                         <td>{data.createdAt}</td>
                         <td>{data.lastSignInTime}</td>
-                        <td>{data.emailVarified}</td>
-                        <td><button>X</button> <button>Y</button></td>
+                        <td>{data.emailVerified?<TbRosetteDiscountCheckFilled className="text-green-500"/>: <LiaTimesCircleSolid  className="text-red-500"/>}</td>
+                        <td><button onClick={() => handleDeleteUser(data._id)} className="bg-red-600 text-white rounded-sm p-2"><TbTrashX /></button></td>
                     </tr>
                     )
                 })}
