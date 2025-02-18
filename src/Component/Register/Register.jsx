@@ -4,6 +4,8 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const Register = () => {
     const {createUser, signInGoogle} = useContext(AuthContext)
+
+    
     const handleRegister = e => {
         e.preventDefault()
         const form = e.target        

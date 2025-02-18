@@ -35,7 +35,12 @@ const router = createBrowserRouter([
       },
       {
         path: '/view',
-        element: <ViewUser />
+        element: <ViewUser />,
+        loader: async() => {
+          return await fetch('http://localhost:5000/users')
+          .then( res=> res.json())
+          .then(data=> data)
+        }
       }
     ]
   }
@@ -44,7 +49,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </AuthProvider>
   </StrictMode>,
 )

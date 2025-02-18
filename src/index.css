@@ -2,3 +2,8 @@
 body{
     background-color: rgb(21, 20, 22);
 }
+
+tr > td, th {
+    text-align: start;
+    padding: 4px 15px;
+}
