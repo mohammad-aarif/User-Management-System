@@ -5,7 +5,15 @@ import { LiaTimesCircleSolid  } from "react-icons/lia";
 const ViewUser = () => {
     const user = useLoaderData()
     const handleDeleteUser = id => {
-        console.log(id);
+        fetch(`http://localhost:5000/users/${id}`,{
+            method: 'DELETE',
+            headers: {
+                'content-type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(res => console.log(res)
+        )
         
     } 
     
