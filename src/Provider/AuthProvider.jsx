@@ -1,5 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import {auth} from '../Firebase/firebase.init';
+import axios from "axios";
 import { signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider } from "firebase/auth";
 
 export const AuthContext = createContext({})
@@ -9,6 +10,16 @@ const AuthProvider = ({children}) => {
     const [loading, setLoading] = useState(true)
 
     const googleProvider = new GoogleAuthProvider()
+
+    useEffect(() =>{
+        if(user?.email){
+            axios.post('http://localhost:5000/jwt', user.email, {withCredentials: true})
+            .then(res => console.log(res.data)
+            )
+
+        }
+        
+    },[user])
 
 
     // Creating New User via Email and Password 
