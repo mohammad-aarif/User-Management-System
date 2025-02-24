@@ -1,9 +1,17 @@
 import { useLoaderData } from "react-router-dom";
 import { TbRosetteDiscountCheckFilled, TbTrashX  } from "react-icons/tb";
 import { LiaTimesCircleSolid  } from "react-icons/lia";
+import { useState } from "react";
+import './vewuser.css'
 
 const ViewUser = () => {
     const user = useLoaderData()
+    const userCount = 76
+    const [pageCount, setPageCount] = useState(10)
+    const [page, setPage] = useState(1)
+    const totalPage = Math.ceil(userCount / pageCount)
+    const pages = [...Array(totalPage).keys()]
+
     const handleDeleteUser = id => {
         fetch(`http://localhost:5000/users/${id}`,{
             method: 'DELETE',
@@ -15,7 +23,17 @@ const ViewUser = () => {
         .then(res => console.log(res)
         )
         
-    } 
+    }
+    const handlePrevBtn = () => {
+        if(page > 1){
+            setPage(page-1)
+        }
+    }
+    const handleNextBtn = () => {
+        if(page < totalPage){
+            setPage(page+1)
+        }
+    }
     
     return (
         <div>
@@ -45,9 +63,18 @@ const ViewUser = () => {
                     </tr>
                     )
                 })}
-                    
                 </tbody>
             </table>
+
+                <p className="text-white">page num: {page}</p>
+            <div className="flex justify-center">
+                <button onClick={handlePrevBtn} className="btn bg-gray-700 hover:bg-gray-800 text-gray-300 text-xl rounded-sm px-3 py-1 m-1">Prev</button>
+                {pages.map(data => {
+                    const num = data +1;
+                    return <button onClick={() =>  setPage(num)} className={`btn bg-gray-700 hover:bg-gray-800 text-gray-300 text-xl rounded-sm px-3 py-1 m-1 ${page == num ? 'pagination-active': undefined}`} key={num}>{num}</button>
+                })}
+                <button onClick={handleNextBtn} className="btn bg-gray-700 hover:bg-gray-800 text-gray-300 text-xl rounded-sm px-3 py-1 m-1">Next</button>
+            </div>
         </div>
     );
 };
