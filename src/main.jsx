@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         path: '/view',
         element: <ViewUser />,
         loader: async() => {
-          return await fetch('http://localhost:5000/users')
+          return await fetch('http://localhost:5000/userscount')
           .then( res=> res.json())
           .then(data=> data)
         }
