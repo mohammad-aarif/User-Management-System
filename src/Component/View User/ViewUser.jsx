@@ -24,6 +24,10 @@ const ViewUser = () => {
         )
         
     }
+    const handleFilter = e => {
+        setPageCount(e.target.value);
+        
+    }
     const handlePrevBtn = () => {
         if(page > 1){
             setPage(page-1)
@@ -38,6 +42,15 @@ const ViewUser = () => {
     return (
         <div>
             <h1 className="text-4xl text-center text-white">User Data</h1>
+            <div className="flex bg-gray-900 justify-around p-3 m-3">
+                <p className="text-gray-300">Filter</p>
+                <select onChange={handleFilter} className="text-white bg-gray-900">
+                    <option value={5}>5 items</option>
+                    <option value={10}>10 items</option>
+                    <option value={20}>20 items</option>
+                    <option value={30}>30 items</option>
+                </select>
+            </div>
             <table className="border-collapse table-auto mx-auto my-8">
                 <thead className="text-gray-300 ">
                     <tr>
@@ -66,7 +79,6 @@ const ViewUser = () => {
                 </tbody>
             </table>
 
-                <p className="text-white">page num: {page}</p>
             <div className="flex justify-center">
                 <button onClick={handlePrevBtn} className="btn bg-gray-700 hover:bg-gray-800 text-gray-300 text-xl rounded-sm px-3 py-1 m-1">Prev</button>
                 {pages.map(data => {
